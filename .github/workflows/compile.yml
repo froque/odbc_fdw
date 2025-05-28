@@ -1,0 +1,22 @@
+name: Compile
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run:  |
+        apt-get install --no-install-recommends -y postgresql-common
+        YES="yes" /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+        apt-get install --no-install-recommends -y postgresql-server-dev-14 unixodbc-dev
+
+    - name: Run make
+      run: make
+
